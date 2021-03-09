@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nhaitanov
@@ -21,11 +22,11 @@ public class Status {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
-    @Column(name = "route_id")
-    private Long route_id;
-    @Column(name="date_time_dispatch")
-    private LocalDateTime dateTimeDispatch;
-    @Column(name = "status_id")
-    private Long route_id;
+    @Column(name = "status_name")
+    private Long status_name;
 
+    @OneToMany(mappedBy = "status",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<Application> applicationList = new ArrayList<>();
 }
