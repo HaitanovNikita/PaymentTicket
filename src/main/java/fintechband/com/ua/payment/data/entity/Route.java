@@ -23,7 +23,7 @@ public class Route {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "route_number")
-    private Long route_number;
+    private String route_number;
 
     @OneToMany(mappedBy = "route",
             cascade = CascadeType.ALL,

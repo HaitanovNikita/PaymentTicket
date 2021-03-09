@@ -26,7 +26,10 @@ public class Application {
     private Route route;
     @Column(name = "date_time_dispatch")
     private LocalDateTime dateTimeDispatch;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status")
     private Status status;
+
+
 }

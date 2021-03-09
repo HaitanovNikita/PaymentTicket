@@ -23,7 +23,7 @@ public class Status {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "status_name")
-    private Long status_name;
+    private String status_name;
 
     @OneToMany(mappedBy = "status",
             cascade = CascadeType.ALL,
