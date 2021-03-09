@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name = "status")
 public class Status {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "status_name")

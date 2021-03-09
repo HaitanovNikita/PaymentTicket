@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ApplicationDTO {
     private long id;
-    private String routeNumber;
+    private Long route;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime localDateTimeDispatch;
-    private String status;
+    private Long status;
 }

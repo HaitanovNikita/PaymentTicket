@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name = "route")
 public class Route {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "route_number")
