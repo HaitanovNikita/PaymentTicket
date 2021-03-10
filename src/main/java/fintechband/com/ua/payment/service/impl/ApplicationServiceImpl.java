@@ -1,9 +1,9 @@
-package fintechband.com.ua.payment.data.service.impl;
+package fintechband.com.ua.payment.service.impl;
 
 import fintechband.com.ua.payment.data.converter.Converter;
 import fintechband.com.ua.payment.data.dao.ApplicationDao;
 import fintechband.com.ua.payment.data.dto.ApplicationDTO;
-import fintechband.com.ua.payment.data.service.ApplicationService;
+import fintechband.com.ua.payment.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

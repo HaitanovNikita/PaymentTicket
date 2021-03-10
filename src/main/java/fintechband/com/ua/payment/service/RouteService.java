@@ -1,6 +1,5 @@
-package fintechband.com.ua.payment.data.service;
+package fintechband.com.ua.payment.service;
 
-import fintechband.com.ua.payment.data.dto.ApplicationDTO;
 import fintechband.com.ua.payment.data.dto.RouteDTO;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package fintechband.com.ua.payment.data.controller;
+package fintechband.com.ua.payment.controller;
 
 import fintechband.com.ua.payment.data.dto.StatusDTO;
-import fintechband.com.ua.payment.data.service.StatusService;
+import fintechband.com.ua.payment.service.StatusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

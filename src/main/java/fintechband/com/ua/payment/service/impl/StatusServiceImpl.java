@@ -1,9 +1,9 @@
-package fintechband.com.ua.payment.data.service.impl;
+package fintechband.com.ua.payment.service.impl;
 
 import fintechband.com.ua.payment.data.converter.Converter;
-import fintechband.com.ua.payment.data.dao.RouteDao;
-import fintechband.com.ua.payment.data.dto.RouteDTO;
-import fintechband.com.ua.payment.data.service.RouteService;
+import fintechband.com.ua.payment.data.dao.StatusDao;
+import fintechband.com.ua.payment.data.dto.StatusDTO;
+import fintechband.com.ua.payment.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +19,13 @@ import static fintechband.com.ua.payment.data.converter.Converter.convertEntityT
  */
 @Service
 @Transactional
-public class RouteServiceImpl implements RouteService {
-
+public class StatusServiceImpl implements StatusService {
     @Autowired
-    private RouteDao routeDao;
+    private StatusDao statusDao;
 
     @Override
-    public List<RouteDTO> findAll() {
-        return routeDao
+    public List<StatusDTO> findAll() {
+        return statusDao
                 .findAll()
                 .stream()
                 .map(Converter::convertEntityToDto)
@@ -34,17 +33,17 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteDTO findById(Long id) {
-        return convertEntityToDto(routeDao.findById(id));
+    public StatusDTO findById(Long id) {
+        return convertEntityToDto(statusDao.findById(id));
     }
 
     @Override
-    public RouteDTO save(RouteDTO routeDTO) {
-        return convertEntityToDto(routeDao.save(convertDtoToEntity(routeDTO)));
+    public StatusDTO save(StatusDTO statusDTO) {
+        return convertEntityToDto(statusDao.save(convertDtoToEntity(statusDTO)));
     }
 
     @Override
     public void deleteById(Long id) {
-        routeDao.deleteById(id);
+        statusDao.deleteById(id);
     }
 }
