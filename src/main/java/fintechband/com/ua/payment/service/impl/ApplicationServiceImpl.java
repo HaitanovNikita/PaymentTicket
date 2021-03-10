@@ -57,6 +57,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public Long update(ApplicationDTO applicationDTO) {
+        return applicationDao.update(convertDtoToEntity(applicationDTO));
+    }
+
+    @Override
     public void deleteById(Long id) {
         applicationDao.deleteById(id);
     }

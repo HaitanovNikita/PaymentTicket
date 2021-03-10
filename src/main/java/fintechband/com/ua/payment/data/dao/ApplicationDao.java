@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author nhaitanov
  */
-@Repository
 public interface ApplicationDao {
 
     List<Application> findAll();
@@ -20,6 +19,8 @@ public interface ApplicationDao {
     Application findByStatus(Long status);
 
     Long save(Application application);
+
+    Long update(Application application);
 
     void deleteById(Long id);
 }

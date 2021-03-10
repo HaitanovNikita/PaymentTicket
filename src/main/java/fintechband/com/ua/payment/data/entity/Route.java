@@ -1,9 +1,6 @@
 package fintechband.com.ua.payment.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +11,8 @@ import java.util.List;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "route")
@@ -29,5 +27,5 @@ public class Route {
     @OneToMany(mappedBy = "route",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    private List<Application> applicationList = new ArrayList<>();
+    private List<Application> application = new ArrayList<>();
 }

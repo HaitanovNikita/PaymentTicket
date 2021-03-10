@@ -46,11 +46,17 @@ public class ApplicationDaoImpl implements ApplicationDao {
     @Override
     public Application findByStatus(Long status) {
         /*variant of code implementation for a variety*/
-        return entityManager.createQuery("select a from Application as a where a.status = " + status , Application.class).setFirstResult(0).setMaxResults(1).getSingleResult();
+        return entityManager.createQuery("select a from Application as a where a.status = " + status, Application.class).setFirstResult(0).setMaxResults(1).getSingleResult();
     }
 
     @Override
     public Long save(Application application) {
+        return applicationRepository.save(application).getId();
+    }
+
+    @Override
+    public Long update(Application application) {
+        /*variant of code implementation for a variety, the save method could be used*/
         return applicationRepository.save(application).getId();
     }
 

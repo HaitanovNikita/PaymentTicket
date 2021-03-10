@@ -19,5 +19,7 @@ public interface ApplicationService {
 
     Long save(ApplicationDTO applicationDTO);
 
+    Long update(ApplicationDTO applicationDTO);
+
     void deleteById(Long id);
 }

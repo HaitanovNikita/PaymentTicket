@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author nhaitanov
  */
-@Repository
 public interface RouteDao {
 
     List<Route> findAll();

@@ -1,4 +1,4 @@
-package fintechband.com.ua.payment.controller;
+package fintechband.com.ua.payment.web.controller;
 
 import fintechband.com.ua.payment.data.dto.RouteDTO;
 import fintechband.com.ua.payment.service.RouteService;

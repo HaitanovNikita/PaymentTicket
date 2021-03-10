@@ -1,4 +1,4 @@
-package fintechband.com.ua.payment.controller;
+package fintechband.com.ua.payment.web.controller;
 
 import fintechband.com.ua.payment.data.dto.ApplicationDTO;
 import fintechband.com.ua.payment.service.ApplicationService;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/application")
 @Api(value = "Endpoint to manage application",
         description = "Operations pertaining to application lifecycle")
-public class AutomobileController {
+public class ApplicationController {
 
     @Autowired
     private ApplicationService applicationService;
@@ -67,7 +67,7 @@ public class AutomobileController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     public ResponseEntity<Long> update(@RequestBody ApplicationDTO applicationDTO) {
-        return new ResponseEntity<>(applicationService.save(applicationDTO), HttpStatus.OK);
+        return new ResponseEntity<>(applicationService.update(applicationDTO), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete application by id")

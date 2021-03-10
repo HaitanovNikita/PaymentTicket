@@ -1,10 +1,7 @@
 package fintechband.com.ua.payment.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +11,8 @@ import java.time.LocalDateTime;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "application")
@@ -24,7 +22,6 @@ public class Application {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-
     @JoinColumn(name = "route")
     private Route route;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

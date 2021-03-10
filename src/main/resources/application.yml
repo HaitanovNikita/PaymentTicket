@@ -1,3 +1,11 @@
+application:
+  url-path:
+    host: http://localhost:8080
+    application-service: /application
+    status-service: /status
+    route-service: /route
+    payment-service: /payment-gateway
+
 spring:
   application:
     name: @project.artifactId@
