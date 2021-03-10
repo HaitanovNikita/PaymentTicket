@@ -13,7 +13,9 @@ public interface ApplicationService {
 
     ApplicationDTO findById(Long id);
 
-    List<ApplicationDTO> findByStatus(Long status);
+    List<ApplicationDTO> findAllByStatus(Long status);
+
+    ApplicationDTO findByStatus(Long status);
 
     Long save(ApplicationDTO applicationDTO);
 

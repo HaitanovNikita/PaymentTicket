@@ -38,12 +38,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<ApplicationDTO> findByStatus(Long status) {
+    public List<ApplicationDTO> findAllByStatus(Long status) {
         return applicationDao
-                .findByStatus(status)
+                .findAllByStatus(status)
                 .stream()
                 .map(Converter::convertEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ApplicationDTO findByStatus(Long status) {
+        return convertEntityToDto(applicationDao.findByStatus(status));
     }
 
     @Override

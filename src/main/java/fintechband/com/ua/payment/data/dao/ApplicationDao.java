@@ -15,7 +15,9 @@ public interface ApplicationDao {
 
     Application findById(Long id);
 
-    List<Application> findByStatus(Long status);
+    List<Application> findAllByStatus(Long status);
+
+    Application findByStatus(Long status);
 
     Long save(Application application);
 

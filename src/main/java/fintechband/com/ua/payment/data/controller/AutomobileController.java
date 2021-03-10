@@ -33,14 +33,20 @@ public class AutomobileController {
     }
 
     @ApiOperation(value = "View a application by id")
-    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApplicationDTO> findById(@PathVariable Long id) {
         return new ResponseEntity<>(applicationService.findById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "View all valid application by status")
-    @GetMapping(value = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ApplicationDTO>> findByStatus(@PathVariable Long status) {
+    @GetMapping(value = "/findAll/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ApplicationDTO>> findAllByStatus(@PathVariable Long status) {
+        return new ResponseEntity<>(applicationService.findAllByStatus(status), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "View one valid application by status")
+    @GetMapping(value = "/find/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApplicationDTO> findByStatus(@PathVariable Long status) {
         return new ResponseEntity<>(applicationService.findByStatus(status), HttpStatus.OK);
     }
 

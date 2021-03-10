@@ -3,9 +3,6 @@ spring:
     name: @project.artifactId@
   jpa:
     properties:
-#      hibernate:
-#    hibernate:
-#      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
