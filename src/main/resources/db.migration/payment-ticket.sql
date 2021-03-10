@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 09 2021 г., 23:31
+-- Время создания: Мар 10 2021 г., 12:19
 -- Версия сервера: 10.4.11-MariaDB
 -- Версия PHP: 7.2.28
 
@@ -12,44 +12,62 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `payment-ticket`
+-- База данных: `paymentticket`
 --
-CREATE DATABASE IF NOT EXISTS `payment-ticket` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `payment-ticket`;
 
 -- --------------------------------------------------------
 
+--
+-- Структура таблицы `application`
+--
+
+CREATE TABLE `application` (
+                               `id` bigint(20) NOT NULL,
+                               `route` bigint(20) NOT NULL DEFAULT 1 REFERENCES  route(id),
+                               `date_time_dispatch` datetime NOT NULL,
+                               `status` bigint(20) NOT NULL DEFAULT 1 REFERENCES  status(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `application`
+--
+
+INSERT INTO `application` (`id`, `route`, `date_time_dispatch`, `status`) VALUES
+(1, 1, '2021-01-02 12:12:12', 1),
+(2, 3, '2021-02-15 08:34:45', 1),
+(3, 6, '2021-03-10 03:45:59', 1),
+(4, 5, '2021-01-02 10:15:29', 2),
+(5, 6, '2020-12-02 11:15:29', 3);
+
+-- --------------------------------------------------------
 
 --
 -- Структура таблицы `route`
 --
 
-CREATE TABLE IF NOT EXISTS `route`
-(
-    `id`           bigint      NOT NULL AUTO_INCREMENT,
-    `route_number` varchar(50) NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 7
-  DEFAULT CHARSET = utf8mb4;
+CREATE TABLE `route` (
+                         `id` int(11) NOT NULL,
+                         `route_number` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `route`
 --
 
-INSERT INTO `route` (`id`, `route_number`)
-VALUES (1, 'someRoute1'),
-       (2, 'someRoute2'),
-       (3, 'someRoute3'),
-       (4, 'someRoute4'),
-       (5, 'someRoute5'),
-       (6, 'someRoute6');
+INSERT INTO `route` (`id`, `route_number`) VALUES
+(1, 'someRoute1'),
+(2, 'someRoute2'),
+(3, 'someRoute3'),
+(4, 'someRoute4'),
+(5, 'someRoute5'),
+(6, 'someRoute6');
 
 -- --------------------------------------------------------
 
@@ -57,68 +75,65 @@ VALUES (1, 'someRoute1'),
 -- Структура таблицы `status`
 --
 
-CREATE TABLE IF NOT EXISTS `status`
-(
-    `id`          bigint      NOT NULL AUTO_INCREMENT,
-    `status_name` varchar(50) NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
-  DEFAULT CHARSET = utf8mb4;
+CREATE TABLE `status` (
+                          `id` bigint(20) NOT NULL,
+                          `status_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `status`
 --
 
-INSERT INTO `status` (`id`, `status_name`)
-VALUES (1, 'processed'),
-       (2, 'error'),
-       (3, 'posted');
+INSERT INTO `status` (`id`, `status_name`) VALUES
+(1, 'processed'),
+(2, 'error'),
+(3, 'posted');
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- Индексы сохранённых таблиц
 --
 
 --
--- Ограничения внешнего ключа таблицы `application`
+-- Индексы таблицы `application`
 --
-
-
---
--- Структура таблицы `application`
---
-
-CREATE TABLE IF NOT EXISTS `application`
-(
-    `id`                 bigint   NOT NULL AUTO_INCREMENT,
-    `route`              bigint   NOT NULL DEFAULT 1,
-    `date_time_dispatch` datetime NOT NULL,
-    `status`             bigint   NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`)/*,*/
-    KEY `FKk2wr7er791lwqiwoysgw5mvns` (`route`),
-    KEY `FKeaf0wt64o9ji49300k14s2vph` (`status`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
-  DEFAULT CHARSET = utf8mb4;
-
---
--- Дамп данных таблицы `application`
---
-
-INSERT INTO `application` (`id`, `route`, `date_time_dispatch`, `status`)
-VALUES (1, 1, '2021-01-02 12:12:12', 1),
-       (2, 3, '2021-02-15 08:34:45', 1),
-       (3, 6, '2021-03-10 03:45:59', 1),
-       (4, 5, '2021-01-02 10:15:29', 2),
-       (5, 6, '2020-12-02 11:15:29', 3);
-
--- --------------------------------------------------------
-
 ALTER TABLE `application`
-  ADD CONSTRAINT `FKeaf0wt64o9ji49300k14s2vph` FOREIGN KEY (`status`) REFERENCES `status` (`id`),
-  ADD CONSTRAINT `FKk2wr7er791lwqiwoysgw5mvns` FOREIGN KEY (`route`) REFERENCES `route` (`id`);
+    ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `route`
+--
+ALTER TABLE `route`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `status`
+--
+ALTER TABLE `status`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `application`
+--
+ALTER TABLE `application`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `route`
+--
+ALTER TABLE `route`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `status`
+--
+ALTER TABLE `status`
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

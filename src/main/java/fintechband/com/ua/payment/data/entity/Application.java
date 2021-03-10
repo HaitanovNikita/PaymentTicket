@@ -24,6 +24,7 @@ public class Application {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(name = "route")
     private Route route;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

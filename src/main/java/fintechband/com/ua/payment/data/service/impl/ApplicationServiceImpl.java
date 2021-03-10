@@ -47,8 +47,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDTO save(ApplicationDTO applicationDTO) {
-        return convertEntityToDto(applicationDao.save(convertDtoToEntity(applicationDTO)));
+    public Long save(ApplicationDTO applicationDTO) {
+        return applicationDao.save(convertDtoToEntity(applicationDTO));
     }
 
     @Override

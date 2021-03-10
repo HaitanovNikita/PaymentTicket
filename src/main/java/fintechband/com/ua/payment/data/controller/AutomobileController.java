@@ -50,7 +50,7 @@ public class AutomobileController {
             @ApiResponse(code = 201, message = "Successfully created application"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    public ResponseEntity<ApplicationDTO> create(@RequestBody ApplicationDTO applicationDTO) {
+    public ResponseEntity<Long> create(@RequestBody ApplicationDTO applicationDTO) {
         return new ResponseEntity<>(applicationService.save(applicationDTO), HttpStatus.OK);
     }
 
@@ -60,7 +60,7 @@ public class AutomobileController {
             @ApiResponse(code = 201, message = "Successfully updated route"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    public ResponseEntity<ApplicationDTO> update(@RequestBody ApplicationDTO applicationDTO) {
+    public ResponseEntity<Long> update(@RequestBody ApplicationDTO applicationDTO) {
         return new ResponseEntity<>(applicationService.save(applicationDTO), HttpStatus.OK);
     }
 

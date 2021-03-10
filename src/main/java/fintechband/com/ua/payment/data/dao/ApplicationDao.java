@@ -17,7 +17,7 @@ public interface ApplicationDao {
 
     List<Application> findByStatus(Long status);
 
-    Application save(Application application);
+    Long save(Application application);
 
     void deleteById(Long id);
 }

@@ -3,15 +3,23 @@ spring:
     name: @project.artifactId@
   jpa:
     properties:
-      hibernate:
-        hbm2ddl:
-          auto: update
-    hibernate:
-      ddl-auto: update
+#      hibernate:
+#    hibernate:
+#      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
-    url: jdbc:mysql://localhost:3306/payment-ticket
+    jpa:
+      hibernate:
+        ddl-auto: none
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true
+      properties:
+        hibernate:
+          id:
+            new_generator_mappings: false
+    url: jdbc:mysql://localhost:3306/paymentticket
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password:
+

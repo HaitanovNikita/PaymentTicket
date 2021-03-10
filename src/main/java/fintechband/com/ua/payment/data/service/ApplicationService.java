@@ -15,7 +15,7 @@ public interface ApplicationService {
 
     List<ApplicationDTO> findByStatus(Long status);
 
-    ApplicationDTO save(ApplicationDTO applicationDTO);
+    Long save(ApplicationDTO applicationDTO);
 
     void deleteById(Long id);
 }

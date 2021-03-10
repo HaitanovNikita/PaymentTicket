@@ -44,8 +44,8 @@ public class ApplicationDaoImpl implements ApplicationDao {
     }
 
     @Override
-    public Application save(Application application) {
-        return applicationRepository.save(application);
+    public Long save(Application application) {
+        return applicationRepository.save(application).getId();
     }
 
     @Override
