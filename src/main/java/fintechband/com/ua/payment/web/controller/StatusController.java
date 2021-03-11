@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * @author nhaitanov
  */
+@Slf4j
 @RestController
 @RequestMapping("/status")
 @Api(value = "Endpoint to manage status",
@@ -28,12 +30,14 @@ public class StatusController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "View a list of all status")
     public ResponseEntity<List<StatusDTO>> findAll() {
+        log.debug("Find all statuses");
         return new ResponseEntity<>(statusService.findAll(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "View a status by id")
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StatusDTO> findById(@PathVariable Long id) {
+        log.debug("Find status by [id:{}]", id);
         return new ResponseEntity<>(statusService.findById(id), HttpStatus.OK);
     }
 
@@ -44,6 +48,7 @@ public class StatusController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     public ResponseEntity<StatusDTO> create(@RequestBody StatusDTO statusDTO) {
+        log.debug("Create new status");
         return new ResponseEntity<>(statusService.save(statusDTO), HttpStatus.OK);
     }
 
@@ -54,12 +59,14 @@ public class StatusController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     public ResponseEntity<StatusDTO> update(@RequestBody StatusDTO statusDTO) {
+        log.debug("Update status with [id:{}]", statusDTO.getId());
         return new ResponseEntity<>(statusService.save(statusDTO), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete status by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
+        log.debug("Delete status with [id:{}]", id);
         statusService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
