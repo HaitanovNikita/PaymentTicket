@@ -86,10 +86,19 @@ public class Config {
 
     @Bean
     Unmarshaller unmarshallingForApplicationRequest(@Qualifier("jaxbContextForApplicationRequest") JAXBContext jaxbContextForAccountRequest,
-                                                    @Qualifier("schemaForApplicationRequest") Schema schemaForAccountRequest)
+                                                    @Qualifier("schemaForApplicationRequest") Schema schemaForApplicationRequest)
             throws JAXBException {
         Unmarshaller unmarshaller = jaxbContextForApplicationRequest().createUnmarshaller();
-        unmarshaller.setSchema(schemaForAccountRequest);
+        unmarshaller.setSchema(schemaForApplicationRequest);
+        return unmarshaller;
+    }
+
+    @Bean
+    Unmarshaller unmarshallingForApplicationResponse(@Qualifier("jaxbContextForApplicationResponse") JAXBContext jaxbContextForAccountResponse,
+                                                    @Qualifier("schemaForApplicationResponse") Schema schemaForApplicationResponse)
+            throws JAXBException {
+        Unmarshaller unmarshaller = jaxbContextForApplicationResponse().createUnmarshaller();
+        unmarshaller.setSchema(schemaForApplicationResponse);
         return unmarshaller;
     }
 }

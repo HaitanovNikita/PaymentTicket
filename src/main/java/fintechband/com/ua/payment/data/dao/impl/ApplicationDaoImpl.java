@@ -1,6 +1,5 @@
 package fintechband.com.ua.payment.data.dao.impl;
 
-import com.sun.javaws.IconUtil;
 import fintechband.com.ua.payment.data.dao.ApplicationDao;
 import fintechband.com.ua.payment.data.entity.Application;
 import fintechband.com.ua.payment.data.repository.ApplicationRepository;

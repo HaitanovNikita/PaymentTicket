@@ -34,8 +34,18 @@ public class Converter {
                 .builder()
                 .id(application.getId())
                 .localDateTimeDispatch(LocalDateTime.parse(application.getLocalDateTimeDispatch(), formatter))
-                .route(application.getRoute()==0?1L:application.getRoute())
-                .status(application.getStatus()==0?1L:application.getStatus())
+                .route(application.getRoute() == 0 ? 1L : application.getRoute())
+                .status(application.getStatus() == 0 ? 1L : application.getStatus())
+                .build();
+    }
+
+    public static ApplicationDTO convertModelToDto(ApplicationResponse application) {
+        return ApplicationDTO
+                .builder()
+                .id(application.getId())
+                .localDateTimeDispatch(LocalDateTime.parse(application.getLocalDateTimeDispatch(), formatter))
+                .route(application.getRoute() == 0 ? 1L : application.getRoute())
+                .status(application.getStatus() == 0 ? 1L : application.getStatus())
                 .build();
     }
 
@@ -54,8 +64,8 @@ public class Converter {
                 .builder()
                 .id(application.getId())
                 .localDateTimeDispatch(application.getDateTimeDispatch())
-                .route(application.getRoute().getId()!=null?application.getRoute().getId():null)
-                .status(application.getStatus().getId()!=null?application.getStatus().getId():null)
+                .route(application.getRoute().getId() != null ? application.getRoute().getId() : null)
+                .status(application.getStatus().getId() != null ? application.getStatus().getId() : null)
                 .build();
     }
 
@@ -89,5 +99,16 @@ public class Converter {
                 .id(status.getId())
                 .statusName(status.getStatus_name())
                 .build();
+    }
+
+    public static String convertDtoToXmlRequest(ApplicationDTO applicationDTO) {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<APPLICATION_REQUEST>\n" +
+                "    <ID>%s</ID>\n" +
+                "    <ROUTE>%s</ROUTE>\n" +
+                "    <LOCAL_DATE_TIME_DISPATCH>%s</LOCAL_DATE_TIME_DISPATCH>\n" +
+                "    <STATUS>%s</STATUS>\n" +
+                "</APPLICATION_REQUEST>";
+        return String.format(xml, applicationDTO.getId(), applicationDTO.getRoute(), applicationDTO.getLocalDateTimeDispatch().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), applicationDTO.getStatus());
     }
 }

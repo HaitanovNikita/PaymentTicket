@@ -15,7 +15,11 @@ public class Unmarshalling {
 
     public <T extends Model> T validate(Class<T> modelClass, Unmarshaller unmarshaller, String xml) throws ValidationException {
         try {
-            return (T) unmarshaller.unmarshal(new StringReader(xml));
+            if (xml.contains("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")) {
+                return (T) unmarshaller.unmarshal(new StringReader(xml));
+            } else {
+                return null;
+            }
         } catch (JAXBException exception) {
             throw new ValidationException("Message validation error: " + exception.getLinkedException().getMessage(), exception);
         }
