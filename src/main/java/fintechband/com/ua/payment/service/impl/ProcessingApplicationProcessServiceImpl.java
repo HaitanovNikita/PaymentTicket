@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -30,8 +31,6 @@ public class ProcessingApplicationProcessServiceImpl implements ProcessingApplic
     private final RestTemplate restTemplate;
     @Value("${application.url-path.host}")
     private String host;
-    @Value("${application.url-path.status-service}")
-    private String urlStatusService;
     @Value("${application.url-path.payment-service}")
     private String urlPaymentService;
     @Value("${application.url-path.application-service}")
@@ -50,7 +49,10 @@ public class ProcessingApplicationProcessServiceImpl implements ProcessingApplic
                 .getBody();
         return listApplicationsForProcessing
                 .stream()
-                .filter(apl -> apl.getStatus() != ERROR_STATUS_CODE_APPLICATION && apl.getStatus() != POSTED_STATUS_CODE_APPLICATION)
+                .filter(apl ->
+                        apl != null
+                                && apl.getStatus() != ERROR_STATUS_CODE_APPLICATION
+                                && apl.getStatus() != POSTED_STATUS_CODE_APPLICATION)
                 .map(apl -> performOperationProcessingApplication(apl))
                 .collect(Collectors.toList());
     }
@@ -58,15 +60,21 @@ public class ProcessingApplicationProcessServiceImpl implements ProcessingApplic
     @Override
     public ApplicationDTO applicationProcessing(Long id) {
         String urlForGetApplicationForProcessing = host + urlApplicationService + "/find/status/" + id;
-        ApplicationDTO applicationDTOForProcessing;
-        if ((applicationDTOForProcessing = restTemplate.exchange(urlForGetApplicationForProcessing, HttpMethod.GET, null, ApplicationDTO.class).getBody()) != null) {
-            return performOperationProcessingApplication(applicationDTOForProcessing);
+        try {
+            ResponseEntity<ApplicationDTO> applicationDTOResponseEntity = restTemplate.exchange(urlForGetApplicationForProcessing, HttpMethod.GET, null, ApplicationDTO.class);
+            ApplicationDTO applicationDTOForProcessing;
+            if ((applicationDTOForProcessing = applicationDTOResponseEntity.getBody()) != null) {
+                return performOperationProcessingApplication(applicationDTOForProcessing);
+            }
+        } catch (Exception exception) {
+            throw new IllegalArgumentException(String.format("An unexpected error occurred while processing a ticket with ID: %s details exception: %s", id, exception.toString()));
         }
         throw new IllegalArgumentException(String.format("An unexpected error occurred while processing a ticket with ID: %s", id));
     }
 
     private ApplicationDTO performOperationProcessingApplication(ApplicationDTO applicationDTOForProcessing) {
-        if (applicationDTOForProcessing.getStatus() != ERROR_STATUS_CODE_APPLICATION
+        if (applicationDTOForProcessing != null
+                && applicationDTOForProcessing.getStatus() != ERROR_STATUS_CODE_APPLICATION
                 && applicationDTOForProcessing.getStatus() != POSTED_STATUS_CODE_APPLICATION) {
 
             String urlForGetStatusDtoOfApplication = host + urlPaymentService + "/status";
@@ -74,8 +82,10 @@ public class ProcessingApplicationProcessServiceImpl implements ProcessingApplic
 
             if ((statusDTO = restTemplate.exchange(urlForGetStatusDtoOfApplication, HttpMethod.POST, new HttpEntity<>(applicationDTOForProcessing), StatusDTO.class).getBody()) != null) {
                 applicationDTOForProcessing.setStatus(statusDTO.getId());
+
                 String urlForUpdateApplicationDTOAfterProcessing = host + urlApplicationService + "/update";
                 Long idApplicationDtoAfterProcessing;
+
                 if ((idApplicationDtoAfterProcessing = restTemplate.exchange(urlForUpdateApplicationDTOAfterProcessing, HttpMethod.POST, new HttpEntity<>(applicationDTOForProcessing), Long.class).getBody()) != null) {
                     if (applicationDTOForProcessing.getId() == idApplicationDtoAfterProcessing) {
                         return applicationDTOForProcessing;
@@ -83,6 +93,7 @@ public class ProcessingApplicationProcessServiceImpl implements ProcessingApplic
                 }
             }
         }
-        return null;
+
+        throw new IllegalArgumentException(String.format("An unexpected error occurred while processing a ticket with ID: %s", applicationDTOForProcessing.getId()));
     }
 }

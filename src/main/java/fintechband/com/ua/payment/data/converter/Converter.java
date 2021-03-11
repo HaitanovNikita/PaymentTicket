@@ -17,7 +17,7 @@ public class Converter {
                 .id(applicationDTO.getId())
                 .route(Route.builder().id(applicationDTO.getId()).build())
                 .dateTimeDispatch(applicationDTO.getLocalDateTimeDispatch())
-                .status(Status.builder().id(applicationDTO.getId()).build())
+                .status(Status.builder().id(applicationDTO.getStatus()).build())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package fintechband.com.ua.payment.data.dao.impl;
 
+import com.sun.javaws.IconUtil;
 import fintechband.com.ua.payment.data.dao.ApplicationDao;
 import fintechband.com.ua.payment.data.entity.Application;
 import fintechband.com.ua.payment.data.repository.ApplicationRepository;
@@ -57,6 +58,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     @Override
     public Long update(Application application) {
         /*variant of code implementation for a variety, the save method could be used*/
+        System.out.println("oper: update: "+application.getId()+" st: "+application.getStatus().getId());
         return applicationRepository.save(application).getId();
     }
 
