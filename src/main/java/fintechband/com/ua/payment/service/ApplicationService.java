@@ -9,17 +9,17 @@ import java.util.List;
  */
 public interface ApplicationService {
 
-    List<ApplicationDTO> findAll();
+    List<String> findAll();
 
-    ApplicationDTO findById(Long id);
+    String findById(Long id);
 
-    List<ApplicationDTO> findAllByStatus(Long status);
+    List<String> findAllByStatus(Long status);
 
-    ApplicationDTO findByStatus(Long status);
+    String findByStatus(Long status);
 
-    Long save(ApplicationDTO applicationDTO);
+    Long save(String xmlApplicationRequest);
 
-    Long update(ApplicationDTO applicationDTO);
+    Long update(String xmlApplicationRequest);
 
     void deleteById(Long id);
 }

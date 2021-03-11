@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="APPLICATION_RESPONSE">
+		<xs:annotation>
+			<xs:documentation>Application for payment ticket</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ID">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ROUTE">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="LOCAL_DATE_TIME_DISPATCH">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="19"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="STATUS">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

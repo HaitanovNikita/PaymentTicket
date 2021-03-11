@@ -8,14 +8,19 @@
         <version>2.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>fintechband.com.ua</groupId>
     <artifactId>fintechband</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>fintechband</name>
     <description>Web application for payment of tickets</description>
+
     <properties>
         <java.version>1.8</java.version>
+        <swagger.annotation.version>1.5.18</swagger.annotation.version>
+        <javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,12 +59,16 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.5.18</version>
+            <version>${swagger.annotation.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
+            <version>${javax.ws.rs-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
         </dependency>
     </dependencies>
 
